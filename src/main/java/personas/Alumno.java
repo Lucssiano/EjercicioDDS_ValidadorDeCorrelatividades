@@ -3,10 +3,8 @@ package personas;
 import universidad.Materia;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Alumno {
     private String nombre;
@@ -21,18 +19,9 @@ public class Alumno {
         this.materiasAprobadas = new ArrayList<>(); // Inicializo la lista
     }
 
-    public List<String> getMateriasAprobadas() {
-        return materiasAprobadas.stream()
-                .map(Materia::getNombre) // Obtengo el nombre de cada materia
-                .collect(Collectors.toList()); // Se recolectan los nombres en una lista
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public Boolean aproboCorrelativas(Materia ... materias){
-        return Arrays.stream(materias).allMatch(materiasAprobadas::contains);
+    public Boolean aproboCorrelativas(Materia materia){
+        List <Materia> materiasCorrelativas = materia.getMateriasCorrelativas();
+        return materiasAprobadas.containsAll(materiasCorrelativas);
     }
 
     public void agregarMateriasAprobadas(Materia ... materias){
